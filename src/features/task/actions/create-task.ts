@@ -1,7 +1,6 @@
 "use server";
 import { prisma } from "@/lib/prisma";
 import { TaskStatus } from "@prisma/client";
-import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import  {tasksPath} from "@//paths";
 

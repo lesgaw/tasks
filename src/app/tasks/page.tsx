@@ -1,6 +1,5 @@
 import {Suspense} from "react";
 import TaskList from "@/features/task/components/task-list";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Spinner from "@/components/spinner";
 import TaskCreateForm from "@/features/task/components/task-create-form";
 import CardCompact from "@/components/card-compact";

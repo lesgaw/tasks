@@ -8,7 +8,7 @@ type CardCompactProps = {
     footer?: React.ReactNode;
 }
 
-const CardCompact = ({title, description, content, className, footer}) => {
+const CardCompact = ({title, description, content, className, footer}: CardCompactProps) => {
     return (
         <Card className={className}>
         <CardHeader>

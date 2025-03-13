@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/componen
 import Link from "next/link";
 import { taskPath, taskEditPath } from "@/paths";
 import { Button } from "@/components/ui/button";
-import { LucideSquareArrowOutUpRight, LucideTrash2, LucideCheckCircle, LucideCircleX, LucidePencil } from "lucide-react";
+import { LucideSquareArrowOutUpRight, LucideTrash2, LucidePencil } from "lucide-react";
 import { deleteTask } from "../actions/delete-task";
 
 type TaskItemProps = {

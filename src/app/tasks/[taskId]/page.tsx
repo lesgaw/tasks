@@ -5,14 +5,13 @@ import { Button } from "@/components/ui/button";
 import Placeholder from "@/components/placeholder";
 import { tasksPath } from "@/paths";
 
-type PageProps = {
-    params: {
-        taskId: string;
-    };
-};
+type TaskPageProps = {
+    params: Promise<{ taskId: string }>;
+}
 
-export default async function TaskPage({ params }: PageProps) {
-    const task = await getTask(params.taskId);
+export default async function TaskPage({ params }: TaskPageProps) {
+    const { taskId } = await params;
+    const task = await getTask(taskId);
 
     if (!task) {
         return (
