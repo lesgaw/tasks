@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Task, TaskStatus } from "@prisma/client";
-import { updateTask } from "../actions/update-task";
+import { upsertTask } from "../actions/upsert-task";
 import {
     Select,
     SelectContent,
@@ -14,14 +14,14 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
-type TaskUpdateFormProps = {
-    task: Task;
+type TaskUpsertFormProps = {
+    task?: Task;
 }
 
-export default function TaskUpdateForm({ task }: TaskUpdateFormProps) {
+const TaskUpsertForm = ({ task }: TaskUpsertFormProps) => {
     return (
-        <form action={updateTask} className="flex flex-col space-y-2 w-full">
-            <input type="hidden" name="id" value={task.id} />
+        <form action={(formData) => upsertTask(task?.id, formData)} className="flex flex-col space-y-2 w-full">
+            <input type="hidden" name="id" value={task?.id} />
             
             <div className="space-y-1">
                 <Label htmlFor="title" className="text-sm font-light">Title</Label>
@@ -29,13 +29,14 @@ export default function TaskUpdateForm({ task }: TaskUpdateFormProps) {
                     id="title" 
                     name="title" 
                     type="text"
-                    defaultValue={task.title}
+                    defaultValue={task?.title}
+                    required
                 />
             </div>
             
             <div className="space-y-1">
                 <Label htmlFor="project" className="text-sm font-light">Project</Label>
-                <Select name="project" defaultValue={task.project} required>
+                <Select name="project" defaultValue={task?.project} required>
                     <SelectTrigger>
                         <SelectValue placeholder="Select Project" />
                     </SelectTrigger>
@@ -56,13 +57,14 @@ export default function TaskUpdateForm({ task }: TaskUpdateFormProps) {
                 <Textarea 
                     id="description" 
                     name="description"
-                    defaultValue={task.description}
+                    defaultValue={task?.description}
+                    required
                 />
             </div>
 
             <div className="space-y-1">
                 <Label htmlFor="status" className="text-sm font-light">Status</Label>
-                <Select name="status" defaultValue={task.status}>
+                <Select name="status" defaultValue={task?.status || TaskStatus.OPEN}>
                     <SelectTrigger>
                         <SelectValue placeholder="Select a status" />
                     </SelectTrigger>
@@ -75,7 +77,11 @@ export default function TaskUpdateForm({ task }: TaskUpdateFormProps) {
                 </Select>
             </div>
 
-            <Button type="submit" className="w-full bg-black text-white dark:bg-amber-500 dark:text-black hover:bg-black">Update Task</Button>
+            <Button type="submit" className="w-full bg-black text-white dark:bg-amber-500 dark:text-black hover:bg-black">
+                {task ? "Update Task" : "Create Task"}
+            </Button>
         </form>
     )
 } 
+
+export default TaskUpsertForm;

@@ -1,9 +1,8 @@
 import {Suspense} from "react";
 import TaskList from "@/features/task/components/task-list";
 import Spinner from "@/components/spinner";
-import TaskCreateForm from "@/features/task/components/task-create-form";
 import CardCompact from "@/components/card-compact";
-
+import TaskUpsertForm from "@/features/task/components/task-upsert-form";
 
 export default function TasksPage() {
     return (
@@ -12,7 +11,7 @@ export default function TasksPage() {
             {/* Create Task Card with form */}
             <CardCompact 
             title="Create Task" 
-            content={<TaskCreateForm />} 
+            content={<TaskUpsertForm />} 
             className="w-full max-w-[420px] self-center"
             />
             {/* Task List */}

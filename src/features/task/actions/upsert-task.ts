@@ -6,27 +6,28 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { tasksPath } from "@/paths";
 
-export async function updateTask(formData: FormData) {
+export const upsertTask = async (id: string | undefined, formData: FormData) => {
     const data = {
-        id: formData.get("id") as string,
         title: formData.get("title") as string,
         project: formData.get("project") as string,
         description: formData.get("description") as string,
         status: formData.get("status") as TaskStatus,
     };
 
-    await prisma.task.update({
+    await prisma.task.upsert({
         where: {
-            id: data.id
+            id: id || ""
         },
-        data: {
-            title: data.title,
-            project: data.project,
-            description: data.description,
-            status: data.status,
-        }
+        update: data,
+        create: data,
     });
 
     revalidatePath(tasksPath());
-    redirect(tasksPath());
-} 
+
+    // Redirect to the task detail page after an update    
+    if (id) {
+        redirect(tasksPath());
+    }
+}
+
+export default upsertTask;

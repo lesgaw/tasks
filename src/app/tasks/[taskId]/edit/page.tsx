@@ -1,14 +1,13 @@
 import CardCompact from "@/components/card-compact";
 import { getTask } from "@/features/task/queries/get-task";
 import { notFound } from "next/navigation";
-import TaskUpdateForm from "@/features/task/components/task-update-form";
-
+import TaskUpsertForm from "@/features/task/components/task-upsert-form";
 
 type Props = {
     params: Promise<{ taskId: string }>;
 }
 
-export default async function TaskEditPage({ params }: Props) {
+const TaskEditPage = async ({ params }: Props) => {
     const { taskId } = await params;
     const task = await getTask(taskId);
 
@@ -21,8 +20,10 @@ export default async function TaskEditPage({ params }: Props) {
             <CardCompact 
                 title="Edit Task"
                 className="w-full max-w-[420px]"    
-                content={<TaskUpdateForm task={task} />}
+                content={<TaskUpsertForm task={task} />}
             />
         </div>
     )
 }
+
+export default TaskEditPage;
